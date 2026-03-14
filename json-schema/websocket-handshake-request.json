@@ -1,0 +1,98 @@
+{
+  "$id": "websocket-handshake-request.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WebSocket Handshake Request",
+  "description": "Schema describing the HTTP Upgrade request used to initiate a WebSocket connection as defined in RFC 6455 Section 4.1. The client sends this request to upgrade an HTTP connection to the WebSocket protocol.",
+  "type": "object",
+  "required": [
+    "method",
+    "headers"
+  ],
+  "properties": {
+    "method": {
+      "type": "string",
+      "const": "GET",
+      "description": "The HTTP method must be GET for the WebSocket opening handshake."
+    },
+    "requestUri": {
+      "type": "string",
+      "description": "The Request-URI of the resource being requested, used to identify the WebSocket endpoint.",
+      "examples": [
+        "/chat",
+        "/ws/v1"
+      ]
+    },
+    "httpVersion": {
+      "type": "string",
+      "description": "The HTTP version. Must be at least HTTP/1.1.",
+      "examples": [
+        "HTTP/1.1"
+      ]
+    },
+    "headers": {
+      "type": "object",
+      "description": "HTTP headers required for the WebSocket opening handshake.",
+      "required": [
+        "Host",
+        "Upgrade",
+        "Connection",
+        "Sec-WebSocket-Key",
+        "Sec-WebSocket-Version"
+      ],
+      "properties": {
+        "Host": {
+          "type": "string",
+          "description": "The host and optionally the port of the server being connected to.",
+          "examples": [
+            "example.com",
+            "example.com:8080"
+          ]
+        },
+        "Upgrade": {
+          "type": "string",
+          "const": "websocket",
+          "description": "Must be 'websocket' to indicate the client wishes to upgrade to the WebSocket protocol."
+        },
+        "Connection": {
+          "type": "string",
+          "const": "Upgrade",
+          "description": "Must include 'Upgrade' to signal the connection should be upgraded."
+        },
+        "Sec-WebSocket-Key": {
+          "type": "string",
+          "description": "A base64-encoded random 16-byte value used to prove the handshake was received. The server uses this to generate the Sec-WebSocket-Accept response header.",
+          "pattern": "^[A-Za-z0-9+/]{22}==$"
+        },
+        "Sec-WebSocket-Version": {
+          "type": "string",
+          "const": "13",
+          "description": "The WebSocket protocol version. Must be 13 as defined in RFC 6455."
+        },
+        "Sec-WebSocket-Protocol": {
+          "type": "string",
+          "description": "Optional comma-separated list of subprotocols the client wishes to use, ordered by preference.",
+          "examples": [
+            "chat, superchat",
+            "graphql-ws"
+          ]
+        },
+        "Sec-WebSocket-Extensions": {
+          "type": "string",
+          "description": "Optional list of protocol-level extensions the client wishes to use.",
+          "examples": [
+            "permessage-deflate; client_max_window_bits"
+          ]
+        },
+        "Origin": {
+          "type": "string",
+          "format": "uri",
+          "description": "The origin of the client making the request. Used by servers to accept or reject cross-origin connections."
+        }
+      },
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}

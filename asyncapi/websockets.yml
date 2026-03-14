@@ -1,0 +1,181 @@
+asyncapi: 3.0.0
+info:
+  title: WebSocket Communication API
+  version: 1.0.0
+  description: >-
+    AsyncAPI specification describing WebSocket communication patterns as
+    defined by RFC 6455. WebSockets provide full-duplex communication channels
+    over a single TCP connection, enabling real-time bidirectional data exchange
+    between clients and servers.
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+
+servers:
+  production:
+    host: example.com
+    protocol: ws
+    protocolVersion: '13'
+    description: WebSocket server endpoint
+  secure:
+    host: example.com
+    protocol: wss
+    protocolVersion: '13'
+    description: Secure WebSocket server endpoint (TLS)
+
+channels:
+  connection:
+    address: /
+    description: >-
+      The primary WebSocket connection channel. After the opening handshake
+      completes, this channel supports full-duplex message exchange using
+      text or binary data frames.
+    messages:
+      textMessage:
+        $ref: '#/components/messages/TextMessage'
+      binaryMessage:
+        $ref: '#/components/messages/BinaryMessage'
+      ping:
+        $ref: '#/components/messages/Ping'
+      pong:
+        $ref: '#/components/messages/Pong'
+      close:
+        $ref: '#/components/messages/Close'
+
+operations:
+  sendMessage:
+    action: send
+    channel:
+      $ref: '#/channels/connection'
+    summary: Send a message to the WebSocket server
+    description: >-
+      Sends a text or binary message from client to server over the
+      established WebSocket connection.
+    messages:
+      - $ref: '#/channels/connection/messages/textMessage'
+      - $ref: '#/channels/connection/messages/binaryMessage'
+
+  receiveMessage:
+    action: receive
+    channel:
+      $ref: '#/channels/connection'
+    summary: Receive a message from the WebSocket server
+    description: >-
+      Receives a text or binary message from server to client over the
+      established WebSocket connection.
+    messages:
+      - $ref: '#/channels/connection/messages/textMessage'
+      - $ref: '#/channels/connection/messages/binaryMessage'
+
+  sendPing:
+    action: send
+    channel:
+      $ref: '#/channels/connection'
+    summary: Send a ping frame
+    description: >-
+      Sends a ping control frame to verify the connection is still alive.
+      The remote endpoint must respond with a pong frame.
+    messages:
+      - $ref: '#/channels/connection/messages/ping'
+
+  receivePong:
+    action: receive
+    channel:
+      $ref: '#/channels/connection'
+    summary: Receive a pong frame
+    description: >-
+      Receives a pong control frame in response to a previously sent ping.
+    messages:
+      - $ref: '#/channels/connection/messages/pong'
+
+  closeConnection:
+    action: send
+    channel:
+      $ref: '#/channels/connection'
+    summary: Initiate connection close
+    description: >-
+      Sends a close control frame to initiate the WebSocket closing
+      handshake as defined in RFC 6455 Section 7.
+    messages:
+      - $ref: '#/channels/connection/messages/close'
+
+components:
+  messages:
+    TextMessage:
+      name: TextMessage
+      title: Text Data Message
+      summary: A UTF-8 encoded text message sent over the WebSocket connection
+      contentType: text/plain
+      payload:
+        type: string
+        description: UTF-8 encoded text data
+
+    BinaryMessage:
+      name: BinaryMessage
+      title: Binary Data Message
+      summary: A binary message sent over the WebSocket connection
+      contentType: application/octet-stream
+      payload:
+        type: string
+        format: binary
+        description: Raw binary data
+
+    Ping:
+      name: Ping
+      title: Ping Control Frame
+      summary: >-
+        A ping control frame used for keep-alive and connection health checks.
+        May include up to 125 bytes of application data.
+      payload:
+        type: string
+        maxLength: 125
+        description: Optional application data (up to 125 bytes)
+
+    Pong:
+      name: Pong
+      title: Pong Control Frame
+      summary: >-
+        A pong control frame sent in response to a ping. Contains the same
+        application data as the ping it is responding to.
+      payload:
+        type: string
+        maxLength: 125
+        description: Application data echoed from the corresponding ping frame
+
+    Close:
+      name: Close
+      title: Close Control Frame
+      summary: >-
+        A close control frame used to initiate the closing handshake.
+        Contains an optional status code and reason string.
+      payload:
+        $ref: '#/components/schemas/ClosePayload'
+
+  schemas:
+    ClosePayload:
+      type: object
+      description: Payload of a WebSocket close control frame
+      properties:
+        code:
+          type: integer
+          description: >-
+            A numeric status code indicating the reason for closure as
+            defined in RFC 6455 Section 7.4.
+          enum:
+            - 1000
+            - 1001
+            - 1002
+            - 1003
+            - 1007
+            - 1008
+            - 1009
+            - 1010
+            - 1011
+          examples:
+            - 1000
+        reason:
+          type: string
+          maxLength: 123
+          description: >-
+            A human-readable string explaining the reason for closure.
+            Must not be longer than 123 bytes when encoded as UTF-8.

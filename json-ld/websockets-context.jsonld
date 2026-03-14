@@ -1,0 +1,128 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "ws": "https://websockets.spec.whatwg.org/#",
+    "rfc6455": "https://www.rfc-editor.org/rfc/rfc6455#",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "hydra": "http://www.w3.org/ns/hydra/core#",
+
+    "WebSocketConnection": {
+      "@id": "ws:concept-websocket-connection",
+      "@type": "@id",
+      "rdfs:label": "WebSocket Connection",
+      "rdfs:comment": "A full-duplex communication channel established over a single TCP connection via the WebSocket protocol."
+    },
+
+    "WebSocketHandshake": {
+      "@id": "rfc6455:section-4",
+      "@type": "@id",
+      "rdfs:label": "WebSocket Opening Handshake",
+      "rdfs:comment": "The HTTP Upgrade-based handshake used to establish a WebSocket connection."
+    },
+
+    "WebSocketFrame": {
+      "@id": "rfc6455:section-5.2",
+      "@type": "@id",
+      "rdfs:label": "WebSocket Frame",
+      "rdfs:comment": "The base framing protocol unit for WebSocket communication."
+    },
+
+    "WebSocketMessage": {
+      "@id": "ws:concept-websocket-message",
+      "@type": "@id",
+      "rdfs:label": "WebSocket Message",
+      "rdfs:comment": "A complete message composed of one or more WebSocket frames."
+    },
+
+    "WebSocketCloseCode": {
+      "@id": "rfc6455:section-7.4",
+      "@type": "@id",
+      "rdfs:label": "WebSocket Close Status Code",
+      "rdfs:comment": "A numeric code indicating the reason a WebSocket connection was closed."
+    },
+
+    "opcode": {
+      "@id": "rfc6455:section-5.2",
+      "@type": "xsd:integer",
+      "rdfs:label": "Opcode",
+      "rdfs:comment": "Defines the interpretation of the payload data in a WebSocket frame."
+    },
+
+    "masked": {
+      "@id": "rfc6455:section-5.3",
+      "@type": "xsd:boolean",
+      "rdfs:label": "Masked",
+      "rdfs:comment": "Indicates whether the frame payload is masked using a masking key."
+    },
+
+    "payloadLength": {
+      "@id": "rfc6455:section-5.2",
+      "@type": "xsd:integer",
+      "rdfs:label": "Payload Length",
+      "rdfs:comment": "The length in bytes of the payload data in a WebSocket frame."
+    },
+
+    "subprotocol": {
+      "@id": "rfc6455:section-1.9",
+      "@type": "xsd:string",
+      "rdfs:label": "Subprotocol",
+      "rdfs:comment": "An application-level protocol layered over the WebSocket protocol."
+    },
+
+    "extension": {
+      "@id": "rfc6455:section-9",
+      "@type": "xsd:string",
+      "rdfs:label": "Extension",
+      "rdfs:comment": "A mechanism for adding capabilities to the WebSocket protocol without requiring a new protocol version."
+    },
+
+    "closeCode": {
+      "@id": "rfc6455:section-7.4.1",
+      "@type": "xsd:integer",
+      "rdfs:label": "Close Status Code",
+      "rdfs:comment": "A numeric status code indicating the reason for connection closure."
+    },
+
+    "closeReason": {
+      "@id": "rfc6455:section-7.1.6",
+      "@type": "xsd:string",
+      "rdfs:label": "Close Reason",
+      "rdfs:comment": "A human-readable string explaining why the connection was closed."
+    },
+
+    "origin": {
+      "@id": "schema:url",
+      "@type": "@id",
+      "rdfs:label": "Origin",
+      "rdfs:comment": "The origin from which the WebSocket connection was initiated."
+    },
+
+    "url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+
+    "description": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+
+    "specification": {
+      "@id": "dcterms:conformsTo",
+      "@type": "@id"
+    },
+
+    "protocol": {
+      "@id": "schema:applicationCategory",
+      "@type": "xsd:string"
+    }
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "$id": "websocket-close-code.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WebSocket Close Status Code",
+  "description": "Schema describing WebSocket close status codes as defined in RFC 6455 Section 7.4. These codes indicate the reason a WebSocket connection was closed.",
+  "type": "object",
+  "required": [
+    "code"
+  ],
+  "properties": {
+    "code": {
+      "type": "integer",
+      "description": "The numeric close status code.",
+      "oneOf": [
+        {
+          "const": 1000,
+          "title": "Normal Closure",
+          "description": "The connection has fulfilled its purpose and is being closed normally."
+        },
+        {
+          "const": 1001,
+          "title": "Going Away",
+          "description": "The endpoint is going away, such as a server shutting down or a browser navigating away."
+        },
+        {
+          "const": 1002,
+          "title": "Protocol Error",
+          "description": "The endpoint is terminating the connection due to a protocol error."
+        },
+        {
+          "const": 1003,
+          "title": "Unsupported Data",
+          "description": "The endpoint received a type of data it cannot accept (e.g., text-only endpoint receiving binary)."
+        },
+        {
+          "const": 1005,
+          "title": "No Status Received",
+          "description": "Reserved. Indicates no status code was present in the close frame. Must not be set by an endpoint."
+        },
+        {
+          "const": 1006,
+          "title": "Abnormal Closure",
+          "description": "Reserved. Indicates the connection was closed abnormally without a close frame. Must not be set by an endpoint."
+        },
+        {
+          "const": 1007,
+          "title": "Invalid Frame Payload Data",
+          "description": "The endpoint received data within a message that was not consistent with the type (e.g., non-UTF-8 data in a text message)."
+        },
+        {
+          "const": 1008,
+          "title": "Policy Violation",
+          "description": "The endpoint received a message that violates its policy."
+        },
+        {
+          "const": 1009,
+          "title": "Message Too Big",
+          "description": "The endpoint received a message that is too big to process."
+        },
+        {
+          "const": 1010,
+          "title": "Mandatory Extension",
+          "description": "The client expected the server to negotiate one or more extensions but the server did not."
+        },
+        {
+          "const": 1011,
+          "title": "Internal Server Error",
+          "description": "The server encountered an unexpected condition that prevented it from fulfilling the request."
+        },
+        {
+          "const": 1015,
+          "title": "TLS Handshake Failure",
+          "description": "Reserved. Indicates the TLS handshake failed. Must not be set by an endpoint."
+        }
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "maxLength": 123,
+      "description": "A human-readable reason string explaining the closure. Must not exceed 123 bytes when UTF-8 encoded."
+    }
+  },
+  "additionalProperties": false
+}

@@ -12,4 +12,18 @@ tags:
 created: '2025'
 modified: '2025'
 apis: []
-common: []
+common:
+- type: x-asyncapi
+  url: asyncapi/websockets.yml
+- type: x-json-schema
+  url: json-schema/websocket-handshake-request.json
+- type: x-json-schema
+  url: json-schema/websocket-handshake-response.json
+- type: x-json-schema
+  url: json-schema/websocket-frame.json
+- type: x-json-schema
+  url: json-schema/websocket-message.json
+- type: x-json-schema
+  url: json-schema/websocket-close-code.json
+- type: x-json-ld-context
+  url: json-ld/websockets-context.jsonld

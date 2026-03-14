@@ -1,0 +1,71 @@
+{
+  "$id": "websocket-frame.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WebSocket Frame",
+  "description": "Schema describing the structure of a WebSocket data frame as defined in RFC 6455 Section 5.2. Each frame consists of header fields and a payload.",
+  "type": "object",
+  "required": [
+    "fin",
+    "opcode",
+    "masked",
+    "payloadLength"
+  ],
+  "properties": {
+    "fin": {
+      "type": "boolean",
+      "description": "Indicates whether this is the final fragment in a message. The first fragment may also be the final fragment."
+    },
+    "rsv1": {
+      "type": "boolean",
+      "default": false,
+      "description": "Reserved bit 1. Must be 0 unless an extension defines a meaning for non-zero values (e.g., permessage-deflate uses RSV1)."
+    },
+    "rsv2": {
+      "type": "boolean",
+      "default": false,
+      "description": "Reserved bit 2. Must be 0 unless an extension defines a meaning for non-zero values."
+    },
+    "rsv3": {
+      "type": "boolean",
+      "default": false,
+      "description": "Reserved bit 3. Must be 0 unless an extension defines a meaning for non-zero values."
+    },
+    "opcode": {
+      "type": "integer",
+      "description": "Defines the interpretation of the payload data. Opcodes 0x0-0x2 are for data frames, 0x8-0xA are for control frames.",
+      "enum": [0, 1, 2, 8, 9, 10],
+      "examples": [1]
+    },
+    "opcodeDescription": {
+      "type": "string",
+      "description": "Human-readable description of the opcode value.",
+      "enum": [
+        "continuation",
+        "text",
+        "binary",
+        "connection close",
+        "ping",
+        "pong"
+      ]
+    },
+    "masked": {
+      "type": "boolean",
+      "description": "Indicates whether the payload data is masked. All frames sent from client to server must be masked. Frames from server to client must not be masked."
+    },
+    "maskingKey": {
+      "type": "string",
+      "description": "A 32-bit value used to mask the payload data. Present only when masked is true. Represented as 4 bytes.",
+      "pattern": "^[0-9a-fA-F]{8}$"
+    },
+    "payloadLength": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "The length of the payload data in bytes. For control frames, this must not exceed 125."
+    },
+    "payloadData": {
+      "type": "string",
+      "description": "The application data carried by the frame. For text frames, this is UTF-8 encoded text. For binary frames, this is raw binary data."
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,46 @@
+{
+  "$id": "websocket-message.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WebSocket Message",
+  "description": "Schema describing a complete WebSocket message. A message may consist of one or more frames and carries either text or binary data between endpoints.",
+  "type": "object",
+  "required": [
+    "type",
+    "data"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "text",
+        "binary"
+      ],
+      "description": "The type of the message, determined by the opcode of the first frame. Text messages contain UTF-8 data; binary messages contain raw bytes."
+    },
+    "data": {
+      "type": "string",
+      "description": "The message payload. For text messages this is a UTF-8 string. For binary messages this is base64-encoded binary data."
+    },
+    "size": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "The size of the message payload in bytes."
+    },
+    "fragmented": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the message was delivered across multiple frames using fragmentation."
+    },
+    "compressed": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the message was compressed using a negotiated extension such as permessage-deflate."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The time at which the message was sent or received."
+    }
+  },
+  "additionalProperties": false
+}

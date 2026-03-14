@@ -1,0 +1,68 @@
+{
+  "$id": "websocket-handshake-response.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WebSocket Handshake Response",
+  "description": "Schema describing the HTTP 101 Switching Protocols response that completes the WebSocket opening handshake as defined in RFC 6455 Section 4.2.2.",
+  "type": "object",
+  "required": [
+    "statusCode",
+    "headers"
+  ],
+  "properties": {
+    "statusCode": {
+      "type": "integer",
+      "const": 101,
+      "description": "HTTP status code 101 Switching Protocols, indicating the server agrees to upgrade the connection."
+    },
+    "statusMessage": {
+      "type": "string",
+      "const": "Switching Protocols",
+      "description": "The HTTP reason phrase for the 101 status code."
+    },
+    "headers": {
+      "type": "object",
+      "description": "HTTP headers in the server's handshake response.",
+      "required": [
+        "Upgrade",
+        "Connection",
+        "Sec-WebSocket-Accept"
+      ],
+      "properties": {
+        "Upgrade": {
+          "type": "string",
+          "const": "websocket",
+          "description": "Confirms the protocol upgrade to WebSocket."
+        },
+        "Connection": {
+          "type": "string",
+          "const": "Upgrade",
+          "description": "Confirms the connection is being upgraded."
+        },
+        "Sec-WebSocket-Accept": {
+          "type": "string",
+          "description": "A base64-encoded SHA-1 hash of the client's Sec-WebSocket-Key concatenated with the GUID '258EAFA5-E914-47DA-95CA-C5AB0DC85B11'. Used to prove the server received the client's handshake.",
+          "pattern": "^[A-Za-z0-9+/]{27}=$"
+        },
+        "Sec-WebSocket-Protocol": {
+          "type": "string",
+          "description": "The subprotocol selected by the server from the client's list.",
+          "examples": [
+            "chat",
+            "graphql-ws"
+          ]
+        },
+        "Sec-WebSocket-Extensions": {
+          "type": "string",
+          "description": "The extensions selected by the server.",
+          "examples": [
+            "permessage-deflate"
+          ]
+        }
+      },
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}
