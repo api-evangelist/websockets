@@ -1,0 +1,15 @@
+name: WebSockets
+description: A communication protocol providing full-duplex communication channels
+  over a single TCP connection, enabling real-time data exchange between client and
+  server. It is fundamental to modern network architectures and enables reliable communication
+  between systems.
+url: https://websockets.spec.whatwg.org/
+tags:
+- Real-Time Communication
+- Web Technology
+- Networking
+- Bidirectional Communication
+created: '2025'
+modified: '2025'
+apis: []
+common: []
