@@ -1,29 +1,37 @@
+aid: websockets
 name: WebSockets
-description: A communication protocol providing full-duplex communication channels
-  over a single TCP connection, enabling real-time data exchange between client and
-  server. It is fundamental to modern network architectures and enables reliable communication
-  between systems.
-url: https://websockets.spec.whatwg.org/
+description: >-
+  WebSockets is a communication protocol providing full-duplex communication
+  channels over a single TCP connection, enabling real-time data exchange
+  between client and server. It is fundamental to modern network architectures
+  and enables reliable bidirectional communication between systems.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-- Real-Time Communication
-- Web Technology
-- Networking
-- Bidirectional Communication
-created: '2025'
-modified: '2025'
+  - Real-Time Communication
+  - Web Technology
+  - Networking
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/websockets/refs/heads/main/apis.yml
+created: '2025-01-01'
+modified: '2026-03-16'
+specificationVersion: '0.19'
 apis: []
 common:
-- type: x-asyncapi
-  url: asyncapi/websockets.yml
-- type: x-json-schema
-  url: json-schema/websocket-handshake-request.json
-- type: x-json-schema
-  url: json-schema/websocket-handshake-response.json
-- type: x-json-schema
-  url: json-schema/websocket-frame.json
-- type: x-json-schema
-  url: json-schema/websocket-message.json
-- type: x-json-schema
-  url: json-schema/websocket-close-code.json
-- type: x-json-ld-context
-  url: json-ld/websockets-context.jsonld
+  - type: AsyncAPI
+    url: asyncapi/websockets.yml
+  - type: JSONSchema
+    url: json-schema/websocket-handshake-request.json
+  - type: JSONSchema
+    url: json-schema/websocket-handshake-response.json
+  - type: JSONSchema
+    url: json-schema/websocket-frame.json
+  - type: JSONSchema
+    url: json-schema/websocket-message.json
+  - type: JSONSchema
+    url: json-schema/websocket-close-code.json
+  - type: JSON-LD
+    url: json-ld/websockets-context.jsonld
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
