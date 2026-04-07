@@ -8,9 +8,9 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
+  - Networking
   - Real-Time Communication
   - Web Technology
-  - Networking
 url: >-
   https://raw.githubusercontent.com/api-evangelist/websockets/refs/heads/main/apis.yml
 created: '2025-01-01'
