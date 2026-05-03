@@ -1,0 +1,29 @@
+{
+  "title": "WebSocket Opening Handshake Example",
+  "description": "Example HTTP Upgrade request and server response for establishing a WebSocket connection per RFC 6455",
+  "request": {
+    "method": "GET",
+    "url": "http://example.com/chat",
+    "httpVersion": "HTTP/1.1",
+    "headers": {
+      "Host": "example.com",
+      "Upgrade": "websocket",
+      "Connection": "Upgrade",
+      "Sec-WebSocket-Key": "dGhlIHNhbXBsZSBub25jZQ==",
+      "Sec-WebSocket-Version": "13",
+      "Sec-WebSocket-Protocol": "chat, superchat",
+      "Origin": "http://example.com"
+    }
+  },
+  "response": {
+    "statusCode": 101,
+    "statusText": "Switching Protocols",
+    "headers": {
+      "Upgrade": "websocket",
+      "Connection": "Upgrade",
+      "Sec-WebSocket-Accept": "s3pPLMBiTxaQ9kYGzzhZRbK+xOo=",
+      "Sec-WebSocket-Protocol": "chat"
+    }
+  },
+  "notes": "The Sec-WebSocket-Accept value is computed by concatenating the Sec-WebSocket-Key with the magic string '258EAFA5-E914-47DA-95CA-C5AB0DC85B11' and taking the SHA-1 hash, base64-encoded."
+}

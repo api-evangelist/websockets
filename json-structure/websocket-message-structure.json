@@ -1,0 +1,61 @@
+{
+  "title": "WebSocket Message Structure",
+  "description": "Structure documentation for a WebSocket message as defined by RFC 6455. A message is composed of one or more frames with the same opcode.",
+  "type": "object",
+  "fields": [
+    {
+      "name": "opcode",
+      "type": "integer",
+      "required": true,
+      "description": "Frame opcode: 0=continuation, 1=text, 2=binary, 8=close, 9=ping, 10=pong"
+    },
+    {
+      "name": "fin",
+      "type": "boolean",
+      "required": true,
+      "description": "Final frame flag — true if this is the last fragment of a message"
+    },
+    {
+      "name": "masked",
+      "type": "boolean",
+      "required": true,
+      "description": "Whether the payload is masked (required for client-to-server messages)"
+    },
+    {
+      "name": "payloadLength",
+      "type": "integer",
+      "required": true,
+      "description": "Length of the payload in bytes (7-bit, 16-bit, or 64-bit value)"
+    },
+    {
+      "name": "maskingKey",
+      "type": "string",
+      "required": false,
+      "description": "4-byte masking key (present only when masked=true)"
+    },
+    {
+      "name": "payload",
+      "type": "string",
+      "required": false,
+      "description": "Frame payload data (UTF-8 text for text frames, binary for binary frames)"
+    },
+    {
+      "name": "rsv1",
+      "type": "boolean",
+      "required": false,
+      "description": "Reserved bit 1 — used by extensions (e.g., permessage-deflate)"
+    },
+    {
+      "name": "rsv2",
+      "type": "boolean",
+      "required": false,
+      "description": "Reserved bit 2 — reserved for future use"
+    },
+    {
+      "name": "rsv3",
+      "type": "boolean",
+      "required": false,
+      "description": "Reserved bit 3 — reserved for future use"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "title": "WebSocket Close Handshake Example",
+  "description": "Example of a clean WebSocket connection closure per RFC 6455 Section 7",
+  "closeFrame": {
+    "opcode": 8,
+    "fin": true,
+    "masked": true,
+    "payloadLength": 2,
+    "statusCode": 1000,
+    "reason": "Normal Closure"
+  },
+  "closeAck": {
+    "opcode": 8,
+    "fin": true,
+    "masked": false,
+    "payloadLength": 2,
+    "statusCode": 1000,
+    "reason": "Normal Closure"
+  },
+  "statusCodes": {
+    "1000": "Normal Closure — endpoint purposely closed the connection",
+    "1001": "Going Away — server going down or browser navigating away",
+    "1002": "Protocol Error — endpoint received malformed data",
+    "1003": "Unsupported Data — endpoint received unacceptable data type",
+    "1006": "Abnormal Closure — connection was closed abnormally (no close frame)",
+    "1007": "Invalid Frame Payload Data — text message contains invalid UTF-8",
+    "1008": "Policy Violation — endpoint received a message violating policy",
+    "1009": "Message Too Big — message is too large to process",
+    "1010": "Mandatory Extension — client expected extension not negotiated",
+    "1011": "Internal Error — server encountered unexpected condition",
+    "1015": "TLS Handshake — TLS handshake failed (not sent in frame)"
+  }
+}

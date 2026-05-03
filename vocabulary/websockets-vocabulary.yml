@@ -1,0 +1,177 @@
+aid: websockets
+name: WebSockets Vocabulary
+description: >-
+  Vocabulary and terminology for the WebSocket protocol as defined by RFC 6455
+  and the WHATWG Living Standard. Covers protocol concepts, frame types, handshake
+  procedures, connection lifecycle, and security considerations.
+modified: '2026-05-03'
+terms:
+
+  - term: WebSocket
+    definition: >-
+      A communication protocol providing full-duplex communication channels over a single
+      TCP connection. Standardized by RFC 6455 (2011) and the WHATWG WebSocket Living Standard.
+      Enables bidirectional data exchange between clients and servers with low overhead.
+    tags:
+      - Core Protocol
+      - RFC 6455
+
+  - term: Opening Handshake
+    definition: >-
+      The HTTP Upgrade request/response exchange that establishes a WebSocket connection.
+      The client sends an HTTP GET with Upgrade: websocket, Connection: Upgrade,
+      Sec-WebSocket-Key, and Sec-WebSocket-Version: 13 headers. The server responds
+      with HTTP 101 Switching Protocols if it accepts.
+    tags:
+      - Connection Lifecycle
+      - RFC 6455 Section 4
+
+  - term: Frame
+    definition: >-
+      The basic protocol data unit for WebSocket communication. Each frame has a
+      header containing FIN bit, opcode, mask bit, and payload length, followed
+      by an optional masking key and the payload data. All client-to-server frames
+      must be masked.
+    tags:
+      - Data Transfer
+      - RFC 6455 Section 5.2
+
+  - term: Masking
+    definition: >-
+      A security requirement in WebSocket where all frames sent from client to server
+      must be masked with a 4-byte random masking key. This prevents cache poisoning
+      attacks against HTTP proxies. Server-to-client frames must NOT be masked.
+    tags:
+      - Security
+      - RFC 6455 Section 5.3
+
+  - term: Opcode
+    definition: >-
+      A 4-bit field in the WebSocket frame header that defines the interpretation of
+      the payload. Values: 0=continuation, 1=text, 2=binary, 8=connection close,
+      9=ping, 10=pong. Values 3-7 and 11-15 are reserved.
+    tags:
+      - Frame Types
+      - RFC 6455 Section 5.2
+
+  - term: FIN Bit
+    definition: >-
+      The Final Fragment bit in a WebSocket frame header. When set to 1, indicates
+      this frame is the last fragment of a complete message. WebSocket messages can
+      be split across multiple continuation frames (FIN=0) before the final frame (FIN=1).
+    tags:
+      - Fragmentation
+      - RFC 6455 Section 5.4
+
+  - term: Text Frame
+    definition: >-
+      A WebSocket data frame with opcode 0x1 carrying UTF-8 encoded text. The
+      receiving endpoint must validate that the text is valid UTF-8. Text frames
+      can be fragmented across multiple continuation frames.
+    tags:
+      - Data Transfer
+      - Frame Types
+
+  - term: Binary Frame
+    definition: >-
+      A WebSocket data frame with opcode 0x2 carrying arbitrary binary data.
+      The interpretation of binary payload is application-specific. Binary frames
+      can also be fragmented.
+    tags:
+      - Data Transfer
+      - Frame Types
+
+  - term: Ping Frame
+    definition: >-
+      A WebSocket control frame with opcode 0x9 used for keep-alive and latency measurement.
+      Either endpoint can send a ping. The receiving endpoint must send a pong in response.
+      Ping frames may contain application data that must be echoed in the pong.
+    tags:
+      - Control Frames
+      - Keep-Alive
+
+  - term: Pong Frame
+    definition: >-
+      A WebSocket control frame with opcode 0xA sent in response to a ping frame.
+      Must echo the application data from the corresponding ping. An endpoint may
+      also send an unsolicited pong as a unidirectional heartbeat.
+    tags:
+      - Control Frames
+      - Keep-Alive
+
+  - term: Close Frame
+    definition: >-
+      A WebSocket control frame with opcode 0x8 used to initiate the closing handshake.
+      May contain a 2-byte status code and an optional UTF-8 reason string. After
+      sending a close frame, no more data frames may be sent. Receiving a close frame
+      requires sending a close frame in response.
+    tags:
+      - Connection Lifecycle
+      - Control Frames
+
+  - term: Subprotocol
+    definition: >-
+      An application-level protocol layered on top of WebSocket. Negotiated during
+      the opening handshake via Sec-WebSocket-Protocol header. Examples: STOMP,
+      MQTT, GraphQL over WebSocket, JSON-RPC. The server selects one subprotocol
+      to use for the connection.
+    tags:
+      - Application Layer
+      - Protocol Negotiation
+
+  - term: Extension
+    definition: >-
+      A mechanism for adding features to the WebSocket protocol. Negotiated via
+      Sec-WebSocket-Extensions header. The most common extension is permessage-deflate
+      (RFC 7692) which adds per-message compression using the DEFLATE algorithm.
+    tags:
+      - Extensions
+      - Protocol Negotiation
+
+  - term: permessage-deflate
+    definition: >-
+      A WebSocket extension (RFC 7692) that applies per-message compression using
+      the DEFLATE algorithm. Reduces bandwidth for text-heavy payloads. Negotiated
+      via Sec-WebSocket-Extensions header with parameters like client_max_window_bits.
+    tags:
+      - Compression
+      - Extensions
+
+  - term: Sec-WebSocket-Key
+    definition: >-
+      A base64-encoded random 16-byte value sent by the client in the opening handshake.
+      Used to prove the handshake was received. The server concatenates this with the
+      magic GUID "258EAFA5-E914-47DA-95CA-C5AB0DC85B11", SHA-1 hashes it, and returns
+      the base64-encoded result as Sec-WebSocket-Accept.
+    tags:
+      - Handshake
+      - Security
+
+  - term: Fragmentation
+    definition: >-
+      The ability to split a WebSocket message into multiple frames. Used to send
+      messages of unknown size or to allow multiplexing. A fragmented message starts
+      with a data frame (FIN=0), followed by continuation frames (opcode=0), and ends
+      with a continuation frame with FIN=1.
+    tags:
+      - Data Transfer
+      - RFC 6455 Section 5.4
+
+  - term: WebSocket URI
+    definition: >-
+      A URI scheme for WebSocket connections. ws:// is the non-encrypted scheme
+      (analogous to http://) and wss:// is the TLS-encrypted scheme (analogous to https://).
+      WebSocket URIs are used in the opening handshake request URI.
+    tags:
+      - URI
+      - Connectivity
+
+  - term: Closing Handshake
+    definition: >-
+      The process of cleanly terminating a WebSocket connection. Either endpoint
+      initiates by sending a close frame. The other endpoint must respond with a
+      close frame. After both sides have sent and received close frames, the TCP
+      connection is closed.
+    tags:
+      - Connection Lifecycle
+      - RFC 6455 Section 7
