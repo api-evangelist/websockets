@@ -21,6 +21,8 @@ modified: '2026-05-03'
 specificationVersion: '0.19'
 apis: []
 common:
+  - type: GitHubOrganization
+    url: https://github.com/websockets
   - type: AsyncAPI
     url: asyncapi/websockets.yml
   - type: JSONSchema
