@@ -66,74 +66,90 @@
 
 WebSockets is a communication protocol providing full-duplex communication channels over a single TCP connection, enabling real-time data exchange between client and server. Standardized by RFC 6455 and the WHATWG Living Standard, it is fundamental to modern web architecture and enables reliable bidirectional communication between systems.
 
-**Type:** Topic Index
-**Specification:** [RFC 6455](https://www.rfc-editor.org/rfc/rfc6455)
-**Living Standard:** [websockets.spec.whatwg.org](https://websockets.spec.whatwg.org/)
-**MDN:** [WebSockets API](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
+**Areas:** Full Duplex · Networking · Real-Time Communication · RFC 6455 · Web Technology · Real-Time
 
-## Protocol Overview
+## WebSockets on APIs.io
 
-WebSocket establishes a persistent connection via an HTTP Upgrade handshake, then provides a lightweight framing layer for bidirectional messages. Key properties:
+Everything profiled for WebSockets is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/websockets/](https://apis.io/providers/websockets/)** — or go straight to one of the APIs or properties below.
 
-- **Full-duplex** — Both client and server can send at any time
-- **Low overhead** — 2-10 byte frame headers vs full HTTP headers per request
-- **Real-time** — Push data from server to client without polling
-- **Subprotocols** — STOMP, MQTT, GraphQL-WS, JSON-RPC layered on top
+### Published properties
 
-## Artifacts
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### AsyncAPI Specifications
-- [websockets.yml](asyncapi/websockets.yml) — WebSocket communication channels per RFC 6455
+#### AsyncAPI (1)
 
-### JSON Schemas
-- [websocket-handshake-request.json](json-schema/websocket-handshake-request.json) — HTTP Upgrade request schema
-- [websocket-handshake-response.json](json-schema/websocket-handshake-response.json) — HTTP 101 response schema
-- [websocket-frame.json](json-schema/websocket-frame.json) — WebSocket frame structure
-- [websocket-message.json](json-schema/websocket-message.json) — WebSocket message schema
-- [websocket-close-code.json](json-schema/websocket-close-code.json) — Close status codes
+Event-driven and webhook contracts.
 
-### JSON Structures
-- [websocket-message-structure.json](json-structure/websocket-message-structure.json) — Frame field documentation
+- [WebSocket Communication API](https://apis.io/asyncapis/websockets/websockets/)
 
-### JSON-LD Contexts
-- [websockets-context.jsonld](json-ld/websockets-context.jsonld) — Linked data context for WebSocket concepts
+#### Event channels (1)
 
-### Examples
-- [websocket-handshake-example.json](examples/websocket-handshake-example.json) — Opening handshake request/response
-- [websocket-close-example.json](examples/websocket-close-example.json) — Close handshake and status codes
+Individual events and webhooks the provider emits.
 
-### Vocabulary
-- [websockets-vocabulary.yml](vocabulary/websockets-vocabulary.yml) — WebSocket protocol terminology
+- [/](https://apis.io/channels/websockets/connection/)
 
-## Frame Types
+#### JSON Schema (5)
 
-| Opcode | Type | Description |
-|--------|------|-------------|
-| 0x0 | Continuation | Continuation of a fragmented message |
-| 0x1 | Text | UTF-8 encoded text data |
-| 0x2 | Binary | Raw binary data |
-| 0x8 | Close | Connection close control frame |
-| 0x9 | Ping | Keep-alive ping |
-| 0xA | Pong | Keep-alive pong (reply to ping) |
+The data models the API reads and writes.
 
-## Use Cases
+- [WebSocket Close Status Code](https://apis.io/schemas/websockets/websocket-close-code/)
+- [WebSocket Frame](https://apis.io/schemas/websockets/websocket-frame/)
+- [WebSocket Handshake Request](https://apis.io/schemas/websockets/websocket-handshake-request/)
+- [WebSocket Handshake Response](https://apis.io/schemas/websockets/websocket-handshake-response/)
+- [WebSocket Message](https://apis.io/schemas/websockets/websocket-message/)
 
-- Real-time chat and collaboration applications
-- Live financial data feeds and trading platforms
-- Online gaming with real-time state synchronization
-- IoT device telemetry and command-and-control
-- Live dashboards and monitoring interfaces
-- Push notifications replacing long-polling
+#### JSON Structure (1)
 
-## Related Technologies
+Data models expressed in JSON Structure.
 
-- **Socket.IO** — WebSocket library with fallback transports
-- **STOMP** — Messaging subprotocol over WebSocket
-- **MQTT over WebSocket** — IoT messaging
-- **GraphQL Subscriptions** — Real-time GraphQL over WebSocket
-- **Server-Sent Events** — One-way server push (lighter alternative)
+- [Websocket Message Structure](https://apis.io/json-structure/websockets/websocket-message-structure/)
 
-## Maintainers
+#### JSON-LD (1)
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+Linked-data contexts for the provider's vocabulary.
+
+- [Websockets Context](https://apis.io/jsonld/websockets/websockets-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [WebSockets Vocabulary](https://apis.io/vocabularies/websockets/websockets-vocabulary/)
+
+#### Examples (2)
+
+Example requests and responses.
+
+- [Websocket Close Example](https://apis.io/examples/websockets/websocket-close-example/)
+- [Websocket Handshake Example](https://apis.io/examples/websockets/websocket-handshake-example/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [WebSockets — asyncapi rules](https://apis.io/rules/websockets/websockets-asyncapi-spectral-rules/)
+- [WebSockets — jsonschema rules](https://apis.io/rules/websockets/websockets-jsonschema-spectral-rules/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [GitHub](https://github.com/websockets)
+
+## API Evangelist rating
+
+**Unrated** — no public website could be reached for this company, so there was almost nothing to measure and nothing a reader could check.
+
+This is not a score of zero. No rating is published for this company. If that is wrong because something public exists that we missed, say so on this repository or email [info@apievangelist.com](mailto:info@apievangelist.com) and it will be re-run — free, and no justification needed.
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for WebSockets: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/websockets/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
